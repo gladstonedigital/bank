@@ -1,10 +1,13 @@
 CC=mcs
 
-MAIN_SOURCE = Bank.cs
-MAIN = Bank.exe
+SRC_DIR = src
+BIN_DIR = bin
 
-DLL_SOURCES = $(filter-out $(MAIN_SOURCE),$(wildcard *.cs))
-DLL = Bank.dll 
+MAIN_SOURCE = $(SRC_DIR)/Bank.cs
+MAIN = $(BIN_DIR)/Bank.exe
+
+DLL_SOURCES = $(filter-out $(SRC_DIR)/$(MAIN_SOURCE),$(wildcard $(SRC_DIR)/*.cs))
+DLL = $(BIN_DIR)/Bank.dll 
 
 all: $(MAIN) 
 
@@ -15,9 +18,12 @@ $(DLL): $(DLL_SOURCES)
 	$(CC) $(DLL_SOURCES) -target:module -out:$@
 
 clean:
-	rm $(MAIN) $(DLL)
+	rm -f $(MAIN) $(DLL)
 
 rebuild: clean all
 
-.PHONY : clean
-.SILENT : clean
+test:
+	$(MAIN)
+
+.PHONY : clean test rebuild all
+.SILENT : clean test

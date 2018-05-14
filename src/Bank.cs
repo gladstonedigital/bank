@@ -4,10 +4,30 @@ namespace Bank {
     public static class Program {
         public static void Main(string[] args) {
             Console.WriteLine("bankbois");
-            Account bob = new SavingsAccount(1415);
-            Console.WriteLine(bob.accountNumber + "\n" + bob.balance.quantity + "\n" + bob.interestRate);
-            Account tim = new MoneyMarketAccount(12351, new USD(1154.01m));
-            Console.WriteLine(tim.accountNumber + "\n" + tim.balance.quantity + "\n" + tim.interestRate);
+            Account bob = new CheckingAccount(1415);
+            Console.WriteLine("\nAccount #:\t" + bob.accountNumber + "\n" +
+                              "Balance:\t" + bob.balance.quantity + "\n" + 
+                              "Interest rate:\t" + bob.interestRate);
+            bob.deposit(new USD(200.0m));
+            Console.WriteLine("\nAccount #:\t" + bob.accountNumber + "\n" +
+                              "Balance:\t" + bob.balance.quantity + "\n" + 
+                              "Interest rate:\t" + bob.interestRate);
+            bob.deposit(new EUR(20.0m));
+            Console.WriteLine("\nAccount #:\t" + bob.accountNumber + "\n" +
+                              "Balance:\t" + bob.balance.quantity + "\n" + 
+                              "Interest rate:\t" + bob.interestRate);
+            bob.withdraw(new USD(10.0m));
+            Console.WriteLine("\nAccount #:\t" + bob.accountNumber + "\n" +
+                              "Balance:\t" + bob.balance.quantity + "\n" + 
+                              "Interest rate:\t" + bob.interestRate);
+            bob.withdraw(new USD(200.0m));
+            Console.WriteLine("\nAccount #:\t" + bob.accountNumber + "\n" +
+                              "Balance:\t" + bob.balance.quantity + "\n" + 
+                              "Interest rate:\t" + bob.interestRate);
+            bob.withdraw(new USD(200.0m));
+            Console.WriteLine("\nAccount #:\t" + bob.accountNumber + "\n" +
+                              "Balance:\t" + bob.balance.quantity + "\n" + 
+                              "Interest rate:\t" + bob.interestRate);
         }
     }
 }

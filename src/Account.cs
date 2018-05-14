@@ -14,11 +14,43 @@ namespace Bank {
             this.balance = balance;
             this.accountNumber = accountNumber;
         }
+
+        public bool deposit(Currency amount) {
+            if (String.Equals(balance.symbol, amount.symbol)) {
+                this.balance.quantity += amount.quantity;
+                return true;
+            } else {
+                Console.WriteLine("Account currency and deposit currency do not match; deposit failed.");
+                return false;
+            }
+        }
+
+        public abstract bool withdraw(Currency amount);
     }
 
     public class CheckingAccount : Account {
         public CheckingAccount(int accountNumber) : base(accountNumber) {}
         public CheckingAccount(int accountNumber, Currency balance) : base(accountNumber, balance) {}
+
+        public override bool withdraw(Currency amount) {
+            if (String.Equals(balance.symbol, amount.symbol)) {
+                if (balance.quantity - amount.quantity >= 0.0m) {
+                    balance.quantity -= amount.quantity;
+                    return true;
+                } else if (balance.quantity - amount.quantity - 20.0m >= -200.0m) {
+                    balance.quantity -= 20.0m + amount.quantity;
+                    Console.WriteLine("Overdraft; assessed $20.00 fee.");
+                    return true;
+                } else {
+                    Console.WriteLine("Insufficient funds.");
+                    return false;
+                }
+
+            } else {
+                Console.WriteLine("Account currency and withdraw currency do not match; withdraw failed.");
+                return false;
+            }
+        }
     }
 
     public class SavingsAccount : Account {
@@ -26,6 +58,21 @@ namespace Bank {
 
         public SavingsAccount(int accountNumber) : base(accountNumber) {}
         public SavingsAccount(int accountNumber, Currency balance) : base(accountNumber, balance) {}
+
+        public override bool withdraw(Currency amount) {
+            if (String.Equals(balance.symbol, amount.symbol)) {
+                if (balance.quantity - amount.quantity >= 0.0m) {
+                    balance.quantity -= amount.quantity;
+                    return true;
+                } else {
+                    Console.WriteLine("Insufficient funds.");
+                    return false;
+                }
+            } else {
+                Console.WriteLine("Account currency and withdraw currency do not match; withdraw failed.");
+                return false;
+            }
+        }
     }
 
     public class MoneyMarketAccount : SavingsAccount {
@@ -33,6 +80,21 @@ namespace Bank {
 
         public MoneyMarketAccount(int accountNumber) : base(accountNumber) {}
         public MoneyMarketAccount(int accountNumber, Currency balance) : base(accountNumber, balance) {}
+
+        public override bool withdraw(Currency amount) {
+            if (String.Equals(balance.symbol, amount.symbol)) {
+                if (balance.quantity - 1.50m - amount.quantity >= 0.0m) {
+                    balance.quantity -= 1.50m + amount.quantity;
+                    return true;
+                } else {
+                    Console.WriteLine("Insufficient funds.");
+                    return false;
+                }
+            } else {
+                Console.WriteLine("Account currency and withdraw currency do not match; withdraw failed.");
+                return false;
+            }
+        }
     }
 }
 

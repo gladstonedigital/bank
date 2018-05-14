@@ -16,7 +16,7 @@ namespace Bank {
     }
 
     public class USD : Currency {
-        public override decimal exchangeRate { get; set; } = 1.20m;
+        public override decimal exchangeRate { get; set; } = 1.00m;
         public override string symbol { get; set; } = "USD";
         public override string shortsymbol { get; set; } = "$";
 

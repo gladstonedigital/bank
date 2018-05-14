@@ -5,6 +5,7 @@ namespace Bank {
         public virtual decimal quantity { get; set; } = 0.0m;
         public virtual decimal exchangeRate { get; set; }
         public virtual string symbol { get; set; }
+        public virtual string shortsymbol { get; set; }
 
         protected Currency() {}
 
@@ -17,6 +18,7 @@ namespace Bank {
     public class USD : Currency {
         public override decimal exchangeRate { get; set; } = 1.20m;
         public override string symbol { get; set; } = "USD";
+        public override string shortsymbol { get; set; } = "$";
 
         public USD() {}
 
@@ -26,6 +28,7 @@ namespace Bank {
     public class EUR : Currency {
         public override decimal exchangeRate { get; set; } = 1.20m;
         public override string symbol { get; set; } = "EUR";
+        public override string shortsymbol { get; set; } = "€";
 
         public EUR() {}
 

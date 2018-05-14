@@ -15,7 +15,7 @@ namespace Bank {
             this.accountNumber = accountNumber;
         }
 
-        public bool deposit(Currency amount) {
+        public virtual bool deposit(Currency amount) {
             if (String.Equals(balance.symbol, amount.symbol)) {
                 this.balance.quantity += amount.quantity;
                 return true;
@@ -26,6 +26,33 @@ namespace Bank {
         }
 
         public abstract bool withdraw(Currency amount);
+
+        public virtual bool transfer(Account from, Currency amount) {
+            if (String.Equals(balance.symbol, from.balance.symbol) && String.Equals(balance.symbol, amount.symbol)) {
+                if (from.accountNumber == accountNumber) {
+                    Console.WriteLine("Can't transfer between same account");
+                    return false;
+                } else {
+                    if (amount.quantity > from.balance.quantity) {
+                        Console.WriteLine("Transfer amount exceeds source account balance; transfer failed");
+                        return false;
+                    } else {
+                        from.withdraw(amount);
+                        deposit(amount);
+                        return true;
+                    }
+                }
+            } else {
+                Console.WriteLine("Transfer currencies do not match");
+                return false;
+            }
+        }
+
+        public virtual void print() {
+            Console.WriteLine("\nAccount number:\t" + accountNumber +
+                              "\nAccount currency:\t" + balance.symbol +
+                              "\nAccount balance:\t" + balance.shortsymbol + balance.quantity);
+        }
     }
 
     public class CheckingAccount : Account {

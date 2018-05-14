@@ -2,23 +2,34 @@ using System;
 
 namespace Bank {
     public abstract class Currency {
-        private decimal _exchangeRate;
-        public decimal exchangeRate {
-            get { return _exchangeRate; }
-            set { _exchangeRate = value; }
+        public virtual decimal quantity { get; set; } = 0.0m;
+        public virtual decimal exchangeRate { get; set; }
+        public virtual string symbol { get; set; }
+
+        protected Currency() {}
+
+        protected Currency(decimal quantity) {
+            this.quantity = quantity;
+            this.symbol = symbol;
         }
     }
 
     public class USD : Currency {
-        public USD() {
-            exchangeRate = 1.00m;
-        }
+        public override decimal exchangeRate { get; set; } = 1.20m;
+        public override string symbol { get; set; } = "USD";
+
+        public USD() {}
+
+        public USD(decimal quantity) : base(quantity) {}
     }
 
     public class EUR : Currency {
-        public EUR() {
-            exchangeRate = 1.20m;
-        }
+        public override decimal exchangeRate { get; set; } = 1.20m;
+        public override string symbol { get; set; } = "EUR";
+
+        public EUR() {}
+
+        public EUR(decimal quantity) : base(quantity) {}
     }
 }
 

@@ -4,10 +4,10 @@ namespace Bank {
     public static class Program {
         public static void Main(string[] args) {
             Console.WriteLine("bankbois");
-            Currency usd = new USD();
-            Currency eur = new EUR();
-            Console.WriteLine(usd.exchangeRate);
-            Console.WriteLine(eur.exchangeRate);
+            Account bob = new SavingsAccount(1415, new USD(12.14m));
+            Console.WriteLine(bob.accountNumber + "\n" + bob.balance.quantity + "\n" + bob.interestRate);
+            Account tim = new MoneyMarketAccount(12351, new USD(1154.01m));
+            Console.WriteLine(tim.accountNumber + "\n" + tim.balance.quantity + "\n" + tim.interestRate);
         }
     }
 }

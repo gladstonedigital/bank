@@ -22,7 +22,7 @@ clean:
 
 rebuild: clean all
 
-test:
+test: $(MAIN)
 	$(MAIN)
 
 .PHONY : clean test rebuild all

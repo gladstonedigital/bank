@@ -38,12 +38,7 @@ namespace Bank {
                 return false;
             }
 
-            if (from.withdraw(amount)) {
-                deposit(amount);
-                return true;
-            }
-
-            return false;
+            return from.withdraw(amount) && deposit(amount);
         }
 
         public virtual void print() {

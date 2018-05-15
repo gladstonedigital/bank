@@ -6,7 +6,7 @@ BIN_DIR = bin
 MAIN_SOURCE = $(SRC_DIR)/Bank.cs
 MAIN = $(BIN_DIR)/Bank.exe
 
-DLL_SOURCES = $(filter-out $(SRC_DIR)/$(MAIN_SOURCE),$(wildcard $(SRC_DIR)/*.cs))
+DLL_SOURCES = $(filter-out $(MAIN_SOURCE),$(wildcard $(SRC_DIR)/*.cs))
 DLL = $(BIN_DIR)/Bank.dll 
 
 all: $(MAIN) 

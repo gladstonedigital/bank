@@ -28,24 +28,24 @@ namespace Bank {
         public abstract bool withdraw(Currency amount);
 
         public virtual bool transfer(Account from, Currency amount) {
-            if (String.Equals(balance.symbol, from.balance.symbol) && String.Equals(balance.symbol, amount.symbol)) {
-                if (from.accountNumber == accountNumber) {
-                    Console.WriteLine("Can't transfer between same account");
-                    return false;
-                } else {
-                    if (amount.quantity > from.balance.quantity) {
-                        Console.WriteLine("Transfer amount exceeds source account balance; transfer failed");
-                        return false;
-                    } else {
-                        from.withdraw(amount);
-                        deposit(amount);
-                        return true;
-                    }
-                }
-            } else {
+            if (!String.Equals(balance.symbol, from.balance.symbol) || !String.Equals(balance.symbol, amount.symbol)) {
                 Console.WriteLine("Transfer currencies do not match");
                 return false;
             }
+
+            if (from.accountNumber == accountNumber) {
+                Console.WriteLine("Can't transfer between same account");
+                return false;
+            }
+
+            if (amount.quantity > from.balance.quantity) {
+                Console.WriteLine("Transfer amount exceeds source account balance; transfer failed");
+                return false;
+            } 
+
+            from.withdraw(amount);
+            deposit(amount);
+            return true;
         }
 
         public virtual void print() {

@@ -38,14 +38,12 @@ namespace Bank {
                 return false;
             }
 
-            if (amount.quantity > from.balance.quantity) {
-                Console.WriteLine("Transfer amount exceeds source account balance; transfer failed");
-                return false;
-            } 
+            if (from.withdraw(amount)) {
+                deposit(amount);
+                return true;
+            }
 
-            from.withdraw(amount);
-            deposit(amount);
-            return true;
+            return false;
         }
 
         public virtual void print() {

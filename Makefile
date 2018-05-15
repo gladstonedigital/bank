@@ -1,4 +1,5 @@
-CC=mcs
+CC=/usr/bin/mcs
+MONO=/usr/bin/mono
 
 SRC_DIR = src
 BIN_DIR = bin
@@ -12,10 +13,10 @@ DLL = $(BIN_DIR)/Bank.dll
 all: $(MAIN) 
 
 $(MAIN): $(DLL) $(MAIN_SOURCE)
-	$(CC) -addmodule:$(DLL) $(MAIN_SOURCE) -out:$(MAIN)
+	TERM=xterm $(CC) -addmodule:$(DLL) $(MAIN_SOURCE) -out:$(MAIN)
 
 $(DLL): $(DLL_SOURCES)
-	$(CC) $(DLL_SOURCES) -target:module -out:$@
+	TERM=xterm $(CC) $(DLL_SOURCES) -target:module -out:$@
 
 clean:
 	rm -f $(MAIN) $(DLL)
@@ -23,7 +24,7 @@ clean:
 rebuild: clean all
 
 test: $(MAIN)
-	$(MAIN)
+	TERM=xterm $(MONO) $(MAIN)
 
 .PHONY : clean test rebuild all
 .SILENT : clean test

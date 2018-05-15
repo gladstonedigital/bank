@@ -2,8 +2,9 @@ using System;
 
 namespace Bank {
     public abstract class Account {
-        public virtual Currency balance { get; set; } = new USD();
-        public virtual int accountNumber { get; set; } = 0;
+        public Currency balance { get; set; } = new USD();
+        public int accountNumber { get; set; } = 0;
+        public string accountholderName { get; set; } = "";
 
         protected Account(int accountNumber) {
             this.accountNumber = accountNumber;
@@ -14,7 +15,7 @@ namespace Bank {
             this.accountNumber = accountNumber;
         }
 
-        public virtual bool deposit(Currency amount) {
+        public bool deposit(Currency amount) {
             if (String.Equals(balance.symbol, amount.symbol)) {
                 this.balance.quantity += amount.quantity;
                 return true;
@@ -39,7 +40,7 @@ namespace Bank {
             return true;
         }
 
-        public virtual bool transfer(Account from, Currency amount) {
+        public bool transfer(Account from, Currency amount) {
             if (!String.Equals(balance.symbol, from.balance.symbol) || !String.Equals(balance.symbol, amount.symbol)) {
                 Console.WriteLine("Transfer currencies do not match");
                 return false;
@@ -53,8 +54,9 @@ namespace Bank {
             return from.withdraw(amount) && deposit(amount);
         }
 
-        public virtual void print() {
-            Console.WriteLine("\nAccount number:\t" + accountNumber +
+        public void print() {
+            Console.WriteLine("\nAccountholder name:\t" + accountholderName +
+                              "\nAccount number:\t\t" + accountNumber +
                               "\nAccount currency:\t" + balance.symbol +
                               "\nAccount balance:\t" + balance.shortsymbol + balance.quantity);
         }
